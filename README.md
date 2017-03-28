@@ -1,5 +1,5 @@
 # bash-s3
-AWS S3 get and put in bash
+AWS S3 get and put in bash using instance IAM role credential. 
 
 ## Prerequisite
 * curl
