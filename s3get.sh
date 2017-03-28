@@ -115,7 +115,7 @@ fi
 init_vars
 
 path=$(dirname $destination)
-[ -s "$path" ] && mkdir -p $path
+mkdir -p $path
 
 signature=$(string_to_sign | openssl dgst -sha256 -mac HMAC -macopt hexkey:$(signing_key) | awk '{print $NF}')
 curl_get 2>> ${curlLog} > ${destination}
