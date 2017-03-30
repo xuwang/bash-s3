@@ -6,7 +6,7 @@ AWS S3 get and put in bash using instance IAM role credential.
 * openssl
 * hmac_sha256
 
-## S3 Get
+## S3 Get on EC2
 
 Usage: `s3get.sh <bucket> <filePath> <destination>`
 
@@ -17,7 +17,7 @@ Usage: `s3get.sh <bucket> <filePath> <destination>`
 This will download s3://my-s3bucket/foo/bar.txt to ./bar.txt
 
 
-## S3 Put
+## S3 Put on EC2
 
 Usage: `s3put.sh <bucket> <parent/path> <source>`
 
