@@ -22,7 +22,7 @@ This will download s3://my-s3bucket/foo/bar.txt to ./bar.txt
 Usage: `s3put.sh <bucket> <parent/path> <source>`
 
 ```
-./s3put.sh my-s3bucket bar.txt foo/bar.txt 
+./s3put.sh my-s3bucket foo ./bar.txt 
 ```
 
 This will upload ./bar.txt to s3://my-s3bucket/foo/bar.txt
