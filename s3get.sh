@@ -15,7 +15,7 @@ init_vars() {
   timestamp=$(date -u "+%Y-%m-%d %H:%M:%S")
   isoTimpstamp=$(date -ud "${timestamp}" "+%Y%m%dT%H%M%SZ")
   dateScope=$(date -ud "${timestamp}" "+%Y%m%d")
-  #dateHeader=$(date -ud "${timestamp}" "+%a, %d %h %Y %T %Z") 
+  #dateHeader=$(date -ud "${timestamp}" "+%a, %d %h %Y %T %Z")
   signedHeaders="host;x-amz-content-sha256;x-amz-date;x-amz-security-token"
   service="s3"
 
@@ -34,8 +34,14 @@ init_vars() {
   # Empty payload hash (we are getting content, not upload)
   payload=$(sha256_hash /dev/null)
 
-  # Host header 
+  # Default Host header
   hostHeader="${bucket}.s3-${region}.amazonaws.com"
+
+  # If us-east-1, remove region name: http://docs.aws.amazon.com/general/latest/gr/rande.html
+  if [ ${region} = 'us-east-1' ];
+  then
+    hostHeader="${bucket}.s3.amazonaws.com"
+  fi
 
   # Curl options
   opts="-v -L --fail --retry 5 --retry-delay 3 --silent --show-error"
@@ -55,7 +61,7 @@ sha256_hash() {
 
 # Authorization: <Algorithm> Credential=<Access Key ID/Scope>, SignedHeaders=<SignedHeaders>, Signature=<Signature>
 # Virtual Hosted-style API: http://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html#VirtualHostingLimitations
-# Using Example Virtual Hosted–Style Method - this will default to US East and cause a temporary redirect (307) 
+# Using Example Virtual Hosted–Style Method - this will default to US East and cause a temporary redirect (307)
 #     https://${bucket}.s3.amazonaws.com/${filePath}
 #    Host: ${bucket}.s3.amazonaws.com" \
 # This should avoid the redirect
